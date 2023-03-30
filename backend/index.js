@@ -1,6 +1,7 @@
 import express  from "express";
 import mongoose  from "mongoose";
 import cors  from "cors";
+import userRoute from "./routes/userRoutes.js";
 
 const app =  express();
 app.use(cors());
@@ -10,7 +11,7 @@ app.use(express.urlencoded({limit:"30mb" ,extended:true}))
 
 
 app.get("/",(req,res)=>{
-   res.send("I am Running");
+    res.send("I am Running");
 })
 
 
@@ -23,7 +24,8 @@ try {
     console.log(err)
 }
 
-const port = 8000;
+const port = 4000;
+app.use(userRoute);
 app.listen(port,()=>{
-console.log("App is running at 8000")
+console.log("App is running at 4000")
 })
