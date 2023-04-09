@@ -99,7 +99,7 @@ export const logIn=async(req,res)=>{
         if(type==="doctor"){
             const doc=await DocModal.findOne({email:req.body.email});
             if(doc!==null){
-              const passwordCompare= await bcrypt.compare(req.body.password,user.password)
+              const passwordCompare= await bcrypt.compare(req.body.password,doc.password)
               if(passwordCompare){
                res.json(doc);
               }
@@ -112,7 +112,7 @@ export const logIn=async(req,res)=>{
            if(type==="hospital"){
             const hosp=await HospModal.findOne({email:req.body.email});
             if(hosp!==null){
-              const passwordCompare= await bcrypt.compare(req.body.password,user.password)
+              const passwordCompare= await bcrypt.compare(req.body.password,hosp.password)
               if(passwordCompare){
                res.json(hosp);
               }
@@ -124,7 +124,7 @@ export const logIn=async(req,res)=>{
            if(type==="pathology"){
             const path=await PathModal.findOne({email:req.body.email});
             if(path!==null){
-              const passwordCompare= await bcrypt.compare(req.body.password,user.password)
+              const passwordCompare= await bcrypt.compare(req.body.password,path.password)
               if(passwordCompare){
                res.json(path);
               }
@@ -290,7 +290,7 @@ export const addRoom=async(req,res)=>{
         const roominfo={
             roomtype:req.body.roomtype,
             totalbed:req.body.totalbed,
-
+            
         }
       }
    } catch (error) {
