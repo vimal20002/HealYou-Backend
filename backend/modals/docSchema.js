@@ -9,7 +9,7 @@ const docSchema = new mongoose.Schema(
         docImage:String,
         speciality:[String],
         qualifications:[String],
-        docReviews:[String],
+        docReviews:[Object],
         appointments:[Object]
     }
 )

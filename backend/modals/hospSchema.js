@@ -7,10 +7,8 @@ hcerificate:String,
 hospimage:String,
 adress:String,
 docList:[Object],
-roomType:String,
-totalRooms:String,
+roomlist:[Object],
 location:[String],
-currBeds:String,
-hospReviews:[String]
+hospReviews:[Object]
 })
 export const HospModal = mongoose.model("hospData",hospSchema);

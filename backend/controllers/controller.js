@@ -182,17 +182,16 @@ export const uploadReports=async(req,res)=>{
 export const docReview=async(req,res)=>{
     try {
          const doc= await DocModal.findOne({email:req.body.email});
-         if(doc!=null){
-            let user=await DocModal.appointments()
+         if(doc!==null){
             
             const review={
                 docreview:req.body.review
             }
             const arr=doc.docReviews;
+            console.log(arr)
             arr.push(review);
             doc.docReviews=arr;
              await doc.save();
-             console.log(doc);
              res.json(doc)
          }
         
@@ -200,7 +199,58 @@ export const docReview=async(req,res)=>{
         res.send(error);
     }
 }
+export const hospReview=async(req,res)=>{
+    try {
+         const hosp= await HospModal.findOne({email:req.body.email});
+         if(hosp!==null){
+            
+            const review={
+                hospreview:req.body.review
+            }
+            const arr=hosp.hospReviews;
+         
+            arr.push(review);
 
+            hosp.hospReviews=arr;
+             await hosp.save();
+             console.log(hosp);
+             res.json(hosp)
+         }
+        
+    } catch (error) {
+        res.send(error);
+    }
+}
+export const addDoc=async(req,res)=>{
+    try {
+        let hosp=await HospModal.findOne({email:req.body.email});
+        if(hosp!==null){
+            const ndoc={
+                name:req.body.name,
+                tel:req.body.tel,
+                qual:req.body.qal,
+                spec:req.body.spec,
+                cert:req.body.cert,
+                dimg:req.body.dimg
+            }
+           const arr=hosp.docList;
+           arr.push(ndoc);
+           hosp.docList=arr;
+           await hosp.save();
+           console.log(hosp);
+           res.send(hosp);
+        }
+        else{
+            res.send({message:"Please Register First"})
+        }
+    } catch (error) {
+        res.send(error);
+    }
+}
+// export const addRoom=async(req,res)=>{
+//     let hosp=await HospModal.findOne({eail:req.body.email});
+
+// }
 
 
 
