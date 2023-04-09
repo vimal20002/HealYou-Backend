@@ -3,6 +3,7 @@ import { DocModal } from "../modals/docSchema.js";
 import bcrypt from "bcryptjs";
 import { HospModal } from "../modals/hospSchema.js";
 export const register = async (req, res) => {
+    console.log(req.body)
     try {
         const type=req.body.type;
          if(type==="user"){
@@ -117,10 +118,12 @@ export const googleLogin=async(req,res)=>{
 }
 export const bookBeds=async(req,res)=>{
     try {
+        
+        console.log(req.body)
       const user=await UserModal.findOne({email:req.body.email});
       const nbed={
         patientName:req.body.name,
-        adhaar:req.body.adhaar,
+        adhaar:req.body.adhar,
       }
       const arr = user.bookBed;
       arr.push(nbed)
@@ -141,7 +144,6 @@ export const bookAppointment=async(req,res)=>{
         adhaar:req.body.adhaar,
         disease:req.body.disease
       }
-      console.log(req.body)
       const arr = user.bookAppointment;
       arr.push(nappointment)
       user.bookAppointment= arr;
@@ -186,12 +188,12 @@ export const docReview=async(req,res)=>{
             const review={
                 docreview:req.body.review
             }
-            const arr=doc.appointments;
+            const arr=doc.docReviews;
             arr.push(review);
-            doc.appointments=arr;
+            doc.docReviews=arr;
              await doc.save();
              console.log(doc);
-             res.json({message:"Review added succefully !"})
+             res.json(doc)
          }
         
     } catch (error) {
