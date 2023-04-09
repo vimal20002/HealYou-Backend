@@ -83,6 +83,8 @@ export const register = async (req, res) => {
 export const logIn=async(req,res)=>{
   
     try {
+         let type=req.body.type;
+         if(type==="user"){
          const user=await UserModal.findOne({email:req.body.email});
          if(user!==null){
            const passwordCompare= await bcrypt.compare(req.body.password,user.password)
@@ -93,10 +95,44 @@ export const logIn=async(req,res)=>{
             res.json({message: "Invalid Credentials"});
            }
          }
-         else{
-          res.json({message: "Invalid Credentials"});
+        }
+        if(type==="doctor"){
+            const doc=await DocModal.findOne({email:req.body.email});
+            if(doc!==null){
+              const passwordCompare= await bcrypt.compare(req.body.password,user.password)
+              if(passwordCompare){
+               res.json(doc);
+              }
+              else{
+               res.json({message: "Invalid Credentials"});
+              }
+            }
+           }
 
-         }
+           if(type==="hospital"){
+            const hosp=await HospModal.findOne({email:req.body.email});
+            if(hosp!==null){
+              const passwordCompare= await bcrypt.compare(req.body.password,user.password)
+              if(passwordCompare){
+               res.json(hosp);
+              }
+              else{
+               res.json({message: "Invalid Credentials"});
+              }
+            }
+           }
+           if(type==="pathology"){
+            const path=await PathModal.findOne({email:req.body.email});
+            if(path!==null){
+              const passwordCompare= await bcrypt.compare(req.body.password,user.password)
+              if(passwordCompare){
+               res.json(path);
+              }
+              else{
+               res.json({message: "Invalid Credentials"});
+              }
+            }
+           } 
     } catch (error) {
         res.send(error)
     }
@@ -247,10 +283,21 @@ export const addDoc=async(req,res)=>{
         res.send(error);
     }
 }
-// export const addRoom=async(req,res)=>{
-//     let hosp=await HospModal.findOne({eail:req.body.email});
+export const addRoom=async(req,res)=>{
+   try {
+      let hosp=await HospModal.findOne({email:req.body.email});
+      if(hosp!==null){
+        const roominfo={
+            roomtype:req.body.roomtype,
+            totalbed:req.body.totalbed,
 
-// }
+        }
+      }
+   } catch (error) {
+    res.send(error)
+   }
+      
+}
 
 
 
