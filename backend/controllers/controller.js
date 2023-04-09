@@ -83,6 +83,7 @@ export const register = async (req, res) => {
 export const logIn=async(req,res)=>{
   
     try {
+        console.log(req.body)
          let type=req.body.type;
          if(type==="user"){
          const user=await UserModal.findOne({email:req.body.email});
@@ -285,13 +286,20 @@ export const addDoc=async(req,res)=>{
 }
 export const addRoom=async(req,res)=>{
    try {
+     console.log(req.body);
       let hosp=await HospModal.findOne({email:req.body.email});
       if(hosp!==null){
         const roominfo={
-            roomtype:req.body.roomtype,
-            totalbed:req.body.totalbed,
-            
+            type:req.body.type,
+            count:req.body.count,
+            price:req.body.price
         }
+        const arr=hosp.roomlist;
+        arr.push(roominfo);
+        hosp.roomlist=arr;
+        hosp.save();
+        console.log(hosp);
+        res.send(hosp);
       }
    } catch (error) {
     res.send(error)
