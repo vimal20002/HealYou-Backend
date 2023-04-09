@@ -2,6 +2,9 @@ import express  from "express";
 import mongoose  from "mongoose";
 import cors  from "cors";
 import userRoute from "./routes/userRoutes.js";
+import docRoute from "./routes/docRoutes.js";
+import hospRoute from "./routes/hospRoutes.js";
+import pathRoute from "./routes/pathRoute.js";
 
 const app =  express();
 app.use(cors());
@@ -26,6 +29,9 @@ try {
 
 const port = 4000;
 app.use(userRoute);
+app.use(docRoute);
+app.use(hospRoute);
+app.use(pathRoute);
 app.listen(port,()=>{
 console.log("App is running at 4000")
 })

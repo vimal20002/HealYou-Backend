@@ -6,6 +6,7 @@ password:String,
 googleId:String,
 imagedoc:String,
 bookBed:[Object],
-bookAppointment:[Object]
+bookAppointment:[Object],
+reports:[String]
 })
 export const UserModal = mongoose.model("userData",userSchema);
