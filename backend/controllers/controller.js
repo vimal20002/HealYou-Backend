@@ -1,6 +1,7 @@
 import { UserModal } from "../modals/userSchema.js";
 import { DocModal } from "../modals/docSchema.js";
 import bcrypt from "bcryptjs";
+import { PathModal } from "../modals/pathSchema.js";
 import { HospModal } from "../modals/hospSchema.js";
 export const register = async (req, res) => {
     console.log(req.body)
@@ -122,7 +123,7 @@ export const logIn=async(req,res)=>{
               }
             }
            }
-           if(type==="pathology"){
+           if(type==="pathalogy"){
             const path=await PathModal.findOne({email:req.body.email});
             if(path!==null){
               const passwordCompare= await bcrypt.compare(req.body.password,path.password)
@@ -297,7 +298,7 @@ export const addRoom=async(req,res)=>{
         const arr=hosp.roomlist;
         arr.push(roominfo);
         hosp.roomlist=arr;
-        hosp.save();
+         await hosp.save();
         console.log(hosp);
         res.send(hosp);
       }
